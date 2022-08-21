@@ -1,14 +1,16 @@
+using ValueObjects101.Domain.Shared.ValueObjects;
+
 namespace ValueObjects101.Domain.Orders;
 
 public class PurchaseOrder
 {
     public long Id { get; private set; }
     public ICollection<PurchaseOrderLine> Lines { get; private set; } = null!;
-    public string ContactEmail { get; private set; } = string.Empty;
+    public Email ContactEmail { get; private set; } = null!;
     public DateTime CreatedAt { get; private set; }
-    public string CreatedBy { get; private set; } = string.Empty;
+    public Email CreatedBy { get; private set; } = null!;
 
-    public PurchaseOrder(string contactEmail, string createdBy)
+    public PurchaseOrder(Email contactEmail, Email createdBy)
     {
         ContactEmail = contactEmail;
         CreatedBy = createdBy;

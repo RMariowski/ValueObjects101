@@ -1,6 +1,4 @@
-﻿using ValueObjects101.Domain.Shared.Exceptions;
-
-namespace ValueObjects101.Application.Orders.Exceptions;
+﻿namespace ValueObjects101.Domain.Shared.Exceptions;
 
 public class InvalidQuantityException : ValueObjects101Exception
 {

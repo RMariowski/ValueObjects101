@@ -1,17 +1,15 @@
 ﻿using MediatR;
-using ValueObjects101.Application.Orders.Exceptions;
-using ValueObjects101.Application.Shared.Exceptions;
-using ValueObjects101.Application.Shared.Validators;
 using ValueObjects101.Domain.Orders;
+using ValueObjects101.Domain.Shared.ValueObjects;
 using ValueObjects101.Infrastructure.Database;
 
 namespace ValueObjects101.Application.Orders.Handlers;
 
 public class CreatePurchaseOrder
 {
-    public record Command(IEnumerable<Command.Line> Lines, string ContactEmail, string CreatedBy) : IRequest<long>
+    public record Command(IEnumerable<Command.Line> Lines, Email ContactEmail, Email CreatedBy) : IRequest<long>
     {
-        public record Line(long ArticleId, int Quantity);
+        public record Line(long ArticleId, Quantity Quantity);
     }
 
     public class Handler : IRequestHandler<Command, long>
@@ -25,10 +23,8 @@ public class CreatePurchaseOrder
 
         public async Task<long> Handle(Command command, CancellationToken cancellationToken)
         {
-            if (!EmailValidator.IsValid(command.ContactEmail))
-                throw new InvalidEmailException(command.ContactEmail);
-
             PurchaseOrder order = new(command.ContactEmail, command.CreatedBy);
+
 
             await using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
             {
@@ -50,9 +46,6 @@ public class CreatePurchaseOrder
 
         private static PurchaseOrderLine Map(Command.Line line, int number, long orderId)
         {
-            if (line.Quantity <= 0)
-                throw new InvalidQuantityException(line.Quantity);
-            
             return new PurchaseOrderLine
             (
                 number,

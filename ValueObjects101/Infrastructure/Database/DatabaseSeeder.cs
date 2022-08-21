@@ -1,5 +1,6 @@
 ﻿using ValueObjects101.Domain.Articles;
 using ValueObjects101.Domain.Orders;
+using ValueObjects101.Domain.Shared.ValueObjects;
 
 namespace ValueObjects101.Infrastructure.Database;
 
@@ -18,35 +19,35 @@ public static class DatabaseSeeder
         db.Articles.AddRange(article1, article2, article3, article4);
         await db.SaveChangesAsync();
 
-        PurchaseOrder purchaseOrder1 = new("contact1@email.com", "abc@abc.com");
-        PurchaseOrder purchaseOrder2 = new("contact2@email.com", "xyz@xyz.net");
-        PurchaseOrder purchaseOrder3 = new("contact3@email.com", "wtf@wtf.wtf");
+        PurchaseOrder purchaseOrder1 = new(new Email("contact1@email.com"), new Email("abc@abc.com"));
+        PurchaseOrder purchaseOrder2 = new(new Email("contact2@email.com"), new Email("xyz@xyz.net"));
+        PurchaseOrder purchaseOrder3 = new(new Email("contact3@email.com"), new Email("wtf@wtf.wtf"));
 
         db.PurchaseOrders.AddRange(purchaseOrder1, purchaseOrder2, purchaseOrder3);
         await db.SaveChangesAsync();
 
         db.PurchaseOrderLines.AddRange
         (
-            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, 3),
-            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, 2),
-            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, 1),
-            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, 420)
+            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, new Quantity(3)),
+            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, new Quantity(2)),
+            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, new Quantity(1)),
+            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, new Quantity(420))
         );
         await db.SaveChangesAsync();
 
-        SalesOrder salesOrder1 = new("customer1@email.com", "Note #1", "abc@abc.com");
-        SalesOrder salesOrder2 = new("customer2@email.com", "Note #2", "xyz@xyz.net");
-        SalesOrder salesOrder3 = new("customer3@email.com", "Note #3", "wtf@wtf.wtf");
+        SalesOrder salesOrder1 = new(new Email("customer1@email.com"), "Note #1", new Email("abc@abc.com"));
+        SalesOrder salesOrder2 = new(new Email("customer2@email.com"), "Note #2", new Email("xyz@xyz.net"));
+        SalesOrder salesOrder3 = new(new Email("customer3@email.com"), "Note #3", new Email("wtf@wtf.wtf"));
 
         db.SalesOrders.AddRange(salesOrder1, salesOrder2, salesOrder3);
         await db.SaveChangesAsync();
 
         db.SalesOrderLines.AddRange
         (
-            new SalesOrderLine(1, salesOrder1.Id, article1.Id, 3),
-            new SalesOrderLine(2, salesOrder1.Id, article2.Id, 2),
-            new SalesOrderLine(3, salesOrder1.Id, article3.Id, 1),
-            new SalesOrderLine(4, salesOrder2.Id, article4.Id, 420)
+            new SalesOrderLine(1, salesOrder1.Id, article1.Id, new Quantity(3)),
+            new SalesOrderLine(2, salesOrder1.Id, article2.Id, new Quantity(2)),
+            new SalesOrderLine(3, salesOrder1.Id, article3.Id, new Quantity(1)),
+            new SalesOrderLine(4, salesOrder2.Id, article4.Id, new Quantity(420))
         );
         await db.SaveChangesAsync();
     }

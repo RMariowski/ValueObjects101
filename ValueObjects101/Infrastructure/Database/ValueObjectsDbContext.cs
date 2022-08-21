@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ValueObjects101.Domain.Articles;
 using ValueObjects101.Domain.Orders;
+using ValueObjects101.Domain.Shared.ValueObjects;
+using ValueObjects101.Infrastructure.Database.Converters;
 using ValueObjects101.Infrastructure.Database.EntityTypeConfigurations;
 
 namespace ValueObjects101.Infrastructure.Database;
@@ -24,5 +26,13 @@ public class DatabaseContext : DbContext
         => options.UseSqlServer(_configuration.GetConnectionString("Database"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        => modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArticleEntityTypeConfiguration).Assembly);
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArticleEntityTypeConfiguration).Assembly);
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.Properties<Email>().HaveConversion<EmailConverter>();
+        configurationBuilder.Properties<Quantity>().HaveConversion<QuantityConverter>();
+    }
 }

@@ -1,6 +1,8 @@
-﻿namespace ValueObjects101.Infrastructure.Auth;
+﻿using ValueObjects101.Domain.Shared.ValueObjects;
+
+namespace ValueObjects101.Infrastructure.Auth;
 
 public interface IUserContext
 {
-    string GetEmail();
+    Email GetEmail();
 }

@@ -2,6 +2,7 @@ using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ValueObjects101.Application.Orders.Handlers;
+using ValueObjects101.Domain.Shared.ValueObjects;
 using ValueObjects101.Infrastructure.Auth;
 using ValueObjects101.Infrastructure.Database;
 using ValueObjects101.Infrastructure.Exceptions;
@@ -33,11 +34,15 @@ app.MapPost("/purchase-orders",
     async (CreatePurchaseOrderRequest request, [FromServices] IMediator mediator,
         [FromServices] IUserContext userContext, CancellationToken cancellationToken) =>
     {
-        string createdBy = userContext.GetEmail();
+        var createdBy = userContext.GetEmail();
         CreatePurchaseOrder.Command command = new
         (
-            request.Lines.Select(line => new CreatePurchaseOrder.Command.Line(line.ArticleId, line.Quantity)),
-            request.ContactEmail,
+            request.Lines.Select(line => new CreatePurchaseOrder.Command.Line
+            (
+                line.ArticleId,
+                new Quantity(line.Quantity)
+            )),
+            new Email(request.ContactEmail),
             createdBy
         );
         return await mediator.Send(command, cancellationToken);
@@ -54,11 +59,15 @@ app.MapPost("/sales-orders",
     async (CreateSalesOrderRequest request, [FromServices] IMediator mediator,
         [FromServices] IUserContext userContext, CancellationToken cancellationToken) =>
     {
-        string createdBy = userContext.GetEmail();
+        var createdBy = userContext.GetEmail();
         CreateSalesOrder.Command command = new
         (
-            request.Lines.Select(line => new CreateSalesOrder.Command.Line(line.ArticleId, line.Quantity)),
-            request.CustomerEmail,
+            request.Lines.Select(line => new CreateSalesOrder.Command.Line
+            (
+                line.ArticleId,
+                new Quantity(line.Quantity)
+            )),
+            new Email(request.CustomerEmail),
             request.CustomerNote,
             createdBy
         );

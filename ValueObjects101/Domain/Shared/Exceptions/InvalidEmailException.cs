@@ -1,6 +1,4 @@
-﻿using ValueObjects101.Domain.Shared.Exceptions;
-
-namespace ValueObjects101.Application.Shared.Exceptions;
+﻿namespace ValueObjects101.Domain.Shared.Exceptions;
 
 public class InvalidEmailException : ValueObjects101Exception
 {
