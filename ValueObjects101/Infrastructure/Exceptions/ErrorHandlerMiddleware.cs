@@ -20,12 +20,11 @@ public class ErrorHandlerMiddleware : IMiddleware
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, exception.Message);
             await HandleErrorAsync(context, exception);
         }
     }
 
-    private static async Task HandleErrorAsync(HttpContext context, Exception exception)
+    private async Task HandleErrorAsync(HttpContext context, Exception exception)
     {
         HttpStatusCode httpStatusCode;
         ErrorDto error;
@@ -43,6 +42,7 @@ public class ErrorHandlerMiddleware : IMiddleware
                 break;
 
             default:
+                _logger.LogError(exception, exception.Message);
                 httpStatusCode = HttpStatusCode.InternalServerError;
                 error = new ErrorDto("InternalError", exception.Message);
                 break;
