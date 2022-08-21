@@ -1,3 +1,3 @@
-﻿namespace ValueObjects101.API.Requests;
+﻿namespace ValueObjects101.Presentation.Requests;
 
 public record CreatePurchaseOrderRequest(string ContactEmail);

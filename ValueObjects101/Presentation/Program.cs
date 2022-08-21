@@ -1,11 +1,11 @@
 using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ValueObjects101.API.Requests;
 using ValueObjects101.Application.Orders.Handlers;
 using ValueObjects101.Infrastructure.Auth;
 using ValueObjects101.Infrastructure.Database;
 using ValueObjects101.Infrastructure.Exceptions;
+using ValueObjects101.Presentation.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +37,11 @@ app.MapPost("/purchase-orders",
         [FromServices] IUserContext userContext, CancellationToken cancellationToken) =>
     {
         string createdBy = userContext.GetEmail();
-        CreatePurchaseOrder.Command command = new(request.ContactEmail, createdBy);
+        CreatePurchaseOrder.Command command = new
+        (
+            request.ContactEmail,
+            createdBy
+        );
         return await mediator.Send(command, cancellationToken);
     });
 
@@ -53,7 +57,11 @@ app.MapPost("/sales-orders",
         [FromServices] IUserContext userContext, CancellationToken cancellationToken) =>
     {
         string createdBy = userContext.GetEmail();
-        CreateSalesOrder.Command command = new(request.ContactEmail, createdBy);
+        CreateSalesOrder.Command command = new
+        (
+            request.ContactEmail,
+            createdBy
+        );
         return await mediator.Send(command, cancellationToken);
     });
 
