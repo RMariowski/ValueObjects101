@@ -8,8 +8,15 @@ public class PurchaseOrderLineEntityTypeConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<PurchaseOrderLine> builder)
     {
-        builder.HasKey(line => line.Id);
+        builder.HasKey(line => new { line.Id, line.OrderId });
+
         builder.Property(line => line.Id)
+            .IsRequired();
+
+        builder.Property(line => line.OrderId)
+            .IsRequired();
+
+        builder.Property(line => line.ArticleId)
             .IsRequired();
 
         builder.Property(line => line.Quantity)

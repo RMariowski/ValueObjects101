@@ -6,13 +6,16 @@ public class PurchaseOrderLine
 {
     public int Id { get; private set; }
     public long OrderId { get; private set; }
-    public Article Article { get; private set; } = null!;
+    public long ArticleId { get; private set; }
     public int Quantity { get; private set; }
 
-    public PurchaseOrderLine(long orderId, Article article, int quantity)
+    public Article Article { get; private set; } = null!;
+
+    public PurchaseOrderLine(int id, long orderId, long articleId, int quantity)
     {
+        Id = id;
         OrderId = orderId;
-        Article = article;
+        ArticleId = articleId;
         Quantity = quantity;
     }
 

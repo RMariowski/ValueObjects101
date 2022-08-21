@@ -39,6 +39,7 @@ app.MapPost("/purchase-orders",
         string createdBy = userContext.GetEmail();
         CreatePurchaseOrder.Command command = new
         (
+            request.Lines.Select(line => new CreatePurchaseOrder.Command.Line(line.ArticleId, line.Quantity)),
             request.ContactEmail,
             createdBy
         );

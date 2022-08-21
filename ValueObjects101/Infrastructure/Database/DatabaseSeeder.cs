@@ -27,10 +27,10 @@ public static class DatabaseSeeder
 
         db.PurchaseOrderLines.AddRange
         (
-            new PurchaseOrderLine(purchaseOrder1.Id, article1, 3),
-            new PurchaseOrderLine(purchaseOrder1.Id, article2, 2),
-            new PurchaseOrderLine(purchaseOrder1.Id, article3, 1),
-            new PurchaseOrderLine(purchaseOrder2.Id, article1, 420)
+            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, 3),
+            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, 2),
+            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, 1),
+            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, 420)
         );
         await db.SaveChangesAsync();
 
