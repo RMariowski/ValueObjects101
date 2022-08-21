@@ -2,7 +2,12 @@
 
 namespace ValueObjects101.Application.Orders.Dto;
 
-public record OrderDto(long Id, IEnumerable<OrderLineDto> Lines, DateTime CreatedAt, string CreatedBy)
+public record OrderDto(
+    long Id,
+    IEnumerable<OrderLineDto> Lines,
+    string ContactEmail,
+    DateTime CreatedAt,
+    string CreatedBy)
 {
     public static OrderDto From(PurchaseOrder order)
     {
@@ -10,6 +15,7 @@ public record OrderDto(long Id, IEnumerable<OrderLineDto> Lines, DateTime Create
         (
             order.Id,
             order.Lines.Select(OrderLineDto.From),
+            order.ContactEmail,
             order.CreatedAt,
             order.CreatedBy
         );
@@ -21,6 +27,7 @@ public record OrderDto(long Id, IEnumerable<OrderLineDto> Lines, DateTime Create
         (
             order.Id,
             order.Lines.Select(OrderLineDto.From),
+            order.ContactEmail,
             order.CreatedAt,
             order.CreatedBy
         );
