@@ -8,9 +8,9 @@ public class SalesOrderLineEntityTypeConfiguration : IEntityTypeConfiguration<Sa
 {
     public void Configure(EntityTypeBuilder<SalesOrderLine> builder)
     {
-        builder.HasKey(line => new { line.Id, line.OrderId });
+        builder.HasKey(line => new { Id = line.Number, line.OrderId });
 
-        builder.Property(line => line.Id)
+        builder.Property(line => line.Number)
             .IsRequired();
 
         builder.Property(line => line.OrderId)

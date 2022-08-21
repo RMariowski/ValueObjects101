@@ -48,14 +48,14 @@ public class CreatePurchaseOrder
             return order.Id;
         }
 
-        private static PurchaseOrderLine Map(Command.Line line, int id, long orderId)
+        private static PurchaseOrderLine Map(Command.Line line, int number, long orderId)
         {
             if (line.Quantity <= 0)
                 throw new InvalidQuantityException(line.Quantity);
             
             return new PurchaseOrderLine
             (
-                id,
+                number,
                 orderId,
                 line.ArticleId,
                 line.Quantity

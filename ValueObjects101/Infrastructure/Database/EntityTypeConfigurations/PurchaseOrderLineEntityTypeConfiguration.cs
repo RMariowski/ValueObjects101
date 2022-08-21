@@ -8,9 +8,9 @@ public class PurchaseOrderLineEntityTypeConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<PurchaseOrderLine> builder)
     {
-        builder.HasKey(line => new { line.Id, line.OrderId });
+        builder.HasKey(line => new { Id = line.Number, line.OrderId });
 
-        builder.Property(line => line.Id)
+        builder.Property(line => line.Number)
             .IsRequired();
 
         builder.Property(line => line.OrderId)

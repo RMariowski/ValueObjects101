@@ -46,14 +46,14 @@ public class CreateSalesOrder
             return order.Id;
         }
 
-        private static SalesOrderLine Map(Command.Line line, int id, long orderId)
+        private static SalesOrderLine Map(Command.Line line, int number, long orderId)
         {
             if (line.Quantity <= 0)
                 throw new InvalidQuantityException(line.Quantity);
 
             return new SalesOrderLine
             (
-                id,
+                number,
                 orderId,
                 line.ArticleId,
                 line.Quantity
