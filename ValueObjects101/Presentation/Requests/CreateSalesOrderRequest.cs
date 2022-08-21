@@ -1,3 +1,5 @@
 ﻿namespace ValueObjects101.Presentation.Requests;
 
-public record CreateSalesOrderRequest(string ContactEmail);
+public record CreateSalesOrderRequest(CreateSalesOrderRequestLine[] Lines, string ContactEmail);
+
+public record CreateSalesOrderRequestLine(long ArticleId, int Quantity);

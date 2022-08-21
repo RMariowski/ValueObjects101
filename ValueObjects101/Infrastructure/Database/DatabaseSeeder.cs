@@ -43,10 +43,10 @@ public static class DatabaseSeeder
 
         db.SalesOrderLines.AddRange
         (
-            new SalesOrderLine(salesOrder1.Id, article1, 3),
-            new SalesOrderLine(salesOrder1.Id, article2, 2),
-            new SalesOrderLine(salesOrder1.Id, article3, 1),
-            new SalesOrderLine(salesOrder2.Id, article4, 420)
+            new SalesOrderLine(1, salesOrder1.Id, article1.Id, 3),
+            new SalesOrderLine(2, salesOrder1.Id, article2.Id, 2),
+            new SalesOrderLine(3, salesOrder1.Id, article3.Id, 1),
+            new SalesOrderLine(4, salesOrder2.Id, article4.Id, 420)
         );
         await db.SaveChangesAsync();
     }

@@ -60,6 +60,7 @@ app.MapPost("/sales-orders",
         string createdBy = userContext.GetEmail();
         CreateSalesOrder.Command command = new
         (
+            request.Lines.Select(line => new CreateSalesOrder.Command.Line(line.ArticleId, line.Quantity)),
             request.ContactEmail,
             createdBy
         );
