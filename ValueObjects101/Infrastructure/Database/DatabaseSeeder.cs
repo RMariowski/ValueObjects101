@@ -34,9 +34,9 @@ public static class DatabaseSeeder
         );
         await db.SaveChangesAsync();
 
-        SalesOrder salesOrder1 = new("contact1@email.com", "abc@abc.com");
-        SalesOrder salesOrder2 = new("contact2@email.com", "xyz@xyz.net");
-        SalesOrder salesOrder3 = new("contact3@email.com", "wtf@wtf.wtf");
+        SalesOrder salesOrder1 = new("contact1@email.com", "Note #1", "abc@abc.com");
+        SalesOrder salesOrder2 = new("contact2@email.com", "Note #2", "xyz@xyz.net");
+        SalesOrder salesOrder3 = new("contact3@email.com", "Note #3", "wtf@wtf.wtf");
 
         db.SalesOrders.AddRange(salesOrder1, salesOrder2, salesOrder3);
         await db.SaveChangesAsync();

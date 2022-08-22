@@ -8,9 +8,9 @@ namespace ValueObjects101.Application.Orders.Handlers;
 
 public class GetPurchaseOrder
 {
-    public record Query(long Id) : IRequest<OrderDto>;
+    public record Query(long Id) : IRequest<PurchaseOrderDto>;
 
-    public class Handler : IRequestHandler<Query, OrderDto>
+    public class Handler : IRequestHandler<Query, PurchaseOrderDto>
     {
         private readonly DatabaseContext _dbContext;
 
@@ -19,7 +19,7 @@ public class GetPurchaseOrder
             _dbContext = dbContext;
         }
 
-        public async Task<OrderDto> Handle(Query query, CancellationToken cancellationToken)
+        public async Task<PurchaseOrderDto> Handle(Query query, CancellationToken cancellationToken)
         {
             var order = await _dbContext.PurchaseOrders
                 .AsNoTracking()
@@ -31,7 +31,7 @@ public class GetPurchaseOrder
             if (order is null)
                 throw new PurchaseOrderNotFoundException(query.Id);
 
-            return OrderDto.From(order);
+            return PurchaseOrderDto.From(order);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace ValueObjects101.Application.Orders.Handlers;
 
 public class GetSalesOrder
 {
-    public record Query(long Id) : IRequest<OrderDto>;
+    public record Query(long Id) : IRequest<SalesOrderDto>;
 
-    public class Handler : IRequestHandler<Query, OrderDto>
+    public class Handler : IRequestHandler<Query, SalesOrderDto>
     {
         private readonly DatabaseContext _dbContext;
 
@@ -19,7 +19,7 @@ public class GetSalesOrder
             _dbContext = dbContext;
         }
 
-        public async Task<OrderDto> Handle(Query query, CancellationToken cancellationToken)
+        public async Task<SalesOrderDto> Handle(Query query, CancellationToken cancellationToken)
         {
             var order = await _dbContext.SalesOrders
                 .AsNoTracking()
@@ -31,7 +31,7 @@ public class GetSalesOrder
             if (order is null)
                 throw new SalesOrderNotFoundException(query.Id);
 
-            return OrderDto.From(order);
+            return SalesOrderDto.From(order);
         }
     }
 }

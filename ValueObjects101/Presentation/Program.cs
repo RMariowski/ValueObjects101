@@ -59,6 +59,7 @@ app.MapPost("/sales-orders",
         (
             request.Lines.Select(line => new CreateSalesOrder.Command.Line(line.ArticleId, line.Quantity)),
             request.ContactEmail,
+            request.CustomerNote,
             createdBy
         );
         return await mediator.Send(command, cancellationToken);
