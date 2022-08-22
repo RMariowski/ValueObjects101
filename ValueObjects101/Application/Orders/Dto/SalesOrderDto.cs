@@ -6,7 +6,7 @@ public record SalesOrderDto
 (
     long Id,
     IEnumerable<OrderLineDto> Lines,
-    string ContactEmail,
+    string CustomerEmail,
     string CustomerNote,
     DateTime CreatedAt,
     string CreatedBy)
@@ -17,7 +17,7 @@ public record SalesOrderDto
         (
             order.Id,
             order.Lines.Select(OrderLineDto.From),
-            order.ContactEmail,
+            order.CustomerEmail,
             order.CustomerNote,
             order.CreatedAt,
             order.CreatedBy

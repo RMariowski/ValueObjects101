@@ -8,7 +8,7 @@ namespace ValueObjects101.Application.Orders.Handlers;
 
 public class CreateSalesOrder
 {
-    public record Command(IEnumerable<Command.Line> Lines, string ContactEmail, string CustomerNote, string CreatedBy)
+    public record Command(IEnumerable<Command.Line> Lines, string CustomerEmail, string CustomerNote, string CreatedBy)
         : IRequest<long>
     {
         public record Line(long ArticleId, int Quantity);
@@ -25,9 +25,9 @@ public class CreateSalesOrder
 
         public async Task<long> Handle(Command command, CancellationToken cancellationToken)
         {
-            EmailValidator.ThrowIfInvalid(command.ContactEmail);
+            EmailValidator.ThrowIfInvalid(command.CustomerEmail);
 
-            SalesOrder order = new(command.ContactEmail, command.CustomerNote, command.CreatedBy);
+            SalesOrder order = new(command.CustomerEmail, command.CustomerNote, command.CreatedBy);
 
             await using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
             {

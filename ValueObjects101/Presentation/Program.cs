@@ -58,7 +58,7 @@ app.MapPost("/sales-orders",
         CreateSalesOrder.Command command = new
         (
             request.Lines.Select(line => new CreateSalesOrder.Command.Line(line.ArticleId, line.Quantity)),
-            request.ContactEmail,
+            request.CustomerEmail,
             request.CustomerNote,
             createdBy
         );
