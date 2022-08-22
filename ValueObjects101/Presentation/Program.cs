@@ -9,8 +9,6 @@ using ValueObjects101.Presentation.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
 builder.Services
     .AddScoped<ErrorHandlerMiddleware>()
     .AddEndpointsApiExplorer()
@@ -29,8 +27,7 @@ if (app.Environment.IsDevelopment())
 
 app
     .UseMiddleware<ErrorHandlerMiddleware>()
-    .UseHttpsRedirection()
-    .UseAuthorization();
+    .UseHttpsRedirection();
 
 app.MapPost("/purchase-orders",
     async (CreatePurchaseOrderRequest request, [FromServices] IMediator mediator,
