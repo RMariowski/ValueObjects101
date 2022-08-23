@@ -40,8 +40,7 @@ app.MapPost("/purchase-orders",
             request.Lines.Select(line => new CreatePurchaseOrder.Command.Line
             (
                 line.ArticleId,
-                new Quantity(line.Quantity),
-                line.Unit
+                new Quantity(line.Quantity, line.Unit)
             )),
             new Email(request.ContactEmail),
             createdBy
@@ -66,8 +65,7 @@ app.MapPost("/sales-orders",
             request.Lines.Select(line => new CreateSalesOrder.Command.Line
             (
                 line.ArticleId,
-                new Quantity(line.Quantity),
-                line.Unit
+                new Quantity(line.Quantity, line.Unit)
             )),
             new Email(request.CustomerEmail),
             request.CustomerNote,

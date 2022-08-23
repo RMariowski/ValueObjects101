@@ -33,6 +33,7 @@ public class DatabaseContext : DbContext
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<Email>().HaveConversion<EmailConverter>();
-        configurationBuilder.Properties<Quantity>().HaveConversion<QuantityConverter>();
+        // NOTE: Conversion of multiple column is planned for EF 8
+        // configurationBuilder.Properties<Quantity>().HaveConversion<QuantityConverter>();
     }
 }

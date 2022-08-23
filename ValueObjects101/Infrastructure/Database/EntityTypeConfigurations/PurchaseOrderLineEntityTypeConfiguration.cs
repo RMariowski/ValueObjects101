@@ -19,11 +19,11 @@ public class PurchaseOrderLineEntityTypeConfiguration : IEntityTypeConfiguration
         builder.Property(line => line.ArticleId)
             .IsRequired();
 
-        builder.Property(line => line.Quantity)
-            .IsRequired();
-
-        builder.Property(line => line.Unit)
-            .IsRequired();
+        builder.OwnsOne(line => line.Quantity, owned =>
+        {
+            owned.Property(quantity => quantity.Value).HasColumnName("Quantity");
+            owned.Property(quantity => quantity.Unit).HasColumnName("Unit");
+        });
 
         builder.HasOne(line => line.Article)
             .WithMany();

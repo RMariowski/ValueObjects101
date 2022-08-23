@@ -30,11 +30,11 @@ public static class DatabaseSeeder
 
         db.PurchaseOrderLines.AddRange
         (
-            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, new Quantity(3), Unit.Pieces),
-            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, new Quantity(2), Unit.Pieces),
-            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, new Quantity(1), Unit.Pieces),
-            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, new Quantity(420), Unit.Pieces),
-            new PurchaseOrderLine(2, purchaseOrder2.Id, article5.Id, new Quantity(2.5), Unit.Liters)
+            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, new Quantity(3, Unit.Pieces)),
+            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, new Quantity(2, Unit.Pieces)),
+            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, new Quantity(1, Unit.Pieces)),
+            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, new Quantity(420, Unit.Pieces)),
+            new PurchaseOrderLine(2, purchaseOrder2.Id, article5.Id, new Quantity(2.5, Unit.Liters))
         );
         await db.SaveChangesAsync();
 
@@ -47,10 +47,10 @@ public static class DatabaseSeeder
 
         db.SalesOrderLines.AddRange
         (
-            new SalesOrderLine(1, salesOrder1.Id, article1.Id, new Quantity(3), Unit.Pieces),
-            new SalesOrderLine(2, salesOrder1.Id, article2.Id, new Quantity(2), Unit.Pieces),
-            new SalesOrderLine(3, salesOrder1.Id, article3.Id, new Quantity(1), Unit.Pieces),
-            new SalesOrderLine(4, salesOrder2.Id, article4.Id, new Quantity(420), Unit.Pieces)
+            new SalesOrderLine(1, salesOrder1.Id, article1.Id, new Quantity(3, Unit.Pieces)),
+            new SalesOrderLine(2, salesOrder1.Id, article2.Id, new Quantity(2, Unit.Pieces)),
+            new SalesOrderLine(3, salesOrder1.Id, article3.Id, new Quantity(1, Unit.Pieces)),
+            new SalesOrderLine(4, salesOrder2.Id, article4.Id, new Quantity(420, Unit.Pieces))
         );
         await db.SaveChangesAsync();
     }

@@ -1,4 +1,5 @@
-﻿using ValueObjects101.Domain.Shared.Exceptions;
+﻿using ValueObjects101.Domain.Shared.Enums;
+using ValueObjects101.Domain.Shared.Exceptions;
 
 namespace ValueObjects101.Domain.Shared.ValueObjects;
 
@@ -8,12 +9,18 @@ namespace ValueObjects101.Domain.Shared.ValueObjects;
  * Quantity quantity = new(1);
  * var invalidQuantity = quantity with { Value = 0 }; 
  */
-public record Quantity(double Value)
+public record Quantity(double Value, Unit Unit)
 {
-    public double Value { get; } = IsValid(Value) ? Value : throw new InvalidQuantityException(Value);
+    public double Value { get; } = IsValid(Value, Unit) ? Value : throw new InvalidQuantityException(Value, Unit);
 
-    public static bool IsValid(double value)
+    public static bool IsValid(double value, Unit unit)
     {
-        return value > 0;
+        if (value < 0.0)
+            return false;
+
+        if (unit == Unit.Pieces && Math.Abs(value % 1) > double.Epsilon * 100.0)
+            return false;
+
+        return true;
     }
 }

@@ -10,7 +10,7 @@ public class CreatePurchaseOrder
 {
     public record Command(IEnumerable<Command.Line> Lines, Email ContactEmail, Email CreatedBy) : IRequest<long>
     {
-        public record Line(long ArticleId, Quantity Quantity, Unit Unit);
+        public record Line(long ArticleId, Quantity Quantity);
     }
 
     public class Handler : IRequestHandler<Command, long>
@@ -52,8 +52,7 @@ public class CreatePurchaseOrder
                 number,
                 orderId,
                 line.ArticleId,
-                line.Quantity,
-                line.Unit
+                line.Quantity
             );
         }
     }
