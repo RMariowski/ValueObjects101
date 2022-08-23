@@ -16,6 +16,4 @@ public record Quantity(int Value)
     {
         return value > 0;
     }
-    
-    public static implicit operator int(Quantity quantity) => quantity.Value;
 }

@@ -6,7 +6,7 @@ namespace ValueObjects101.Infrastructure.Database.Converters;
 public class QuantityConverter : ValueConverter<Quantity, int>
 {
     public QuantityConverter()
-        : base(quantity => quantity, value => new Quantity(value))
+        : base(quantity => quantity.Value, value => new Quantity(value))
     {
     }
 }
