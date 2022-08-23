@@ -8,11 +8,11 @@ namespace ValueObjects101.Domain.Shared.ValueObjects;
  * Quantity quantity = new(1);
  * var invalidQuantity = quantity with { Value = 0 }; 
  */
-public record Quantity(int Value)
+public record Quantity(double Value)
 {
-    public int Value { get; } = IsValid(Value) ? Value : throw new InvalidQuantityException(Value);
+    public double Value { get; } = IsValid(Value) ? Value : throw new InvalidQuantityException(Value);
 
-    public static bool IsValid(int value)
+    public static bool IsValid(double value)
     {
         return value > 0;
     }

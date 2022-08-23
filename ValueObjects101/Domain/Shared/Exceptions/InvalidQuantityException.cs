@@ -2,7 +2,7 @@
 
 public class InvalidQuantityException : ValueObjects101Exception
 {
-    public InvalidQuantityException(int quantity)
+    public InvalidQuantityException(double quantity)
         : base($"Invalid quantity '{quantity}'")
     {
     }

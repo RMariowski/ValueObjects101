@@ -22,6 +22,9 @@ public class PurchaseOrderLineEntityTypeConfiguration : IEntityTypeConfiguration
         builder.Property(line => line.Quantity)
             .IsRequired();
 
+        builder.Property(line => line.Unit)
+            .IsRequired();
+
         builder.HasOne(line => line.Article)
             .WithMany();
     }

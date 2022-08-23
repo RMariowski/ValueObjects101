@@ -2,6 +2,7 @@
 using ValueObjects101.Domain.Orders;
 using ValueObjects101.Domain.Shared.ValueObjects;
 using ValueObjects101.Infrastructure.Database;
+using Unit = ValueObjects101.Domain.Shared.Enums.Unit;
 
 namespace ValueObjects101.Application.Orders.Handlers;
 
@@ -10,7 +11,7 @@ public class CreateSalesOrder
     public record Command(IEnumerable<Command.Line> Lines, Email CustomerEmail, string CustomerNote, Email CreatedBy)
         : IRequest<long>
     {
-        public record Line(long ArticleId, Quantity Quantity);
+        public record Line(long ArticleId, Quantity Quantity, Unit Unit);
     }
 
     public class Handler : IRequestHandler<Command, long>
@@ -51,7 +52,8 @@ public class CreateSalesOrder
                 number,
                 orderId,
                 line.ArticleId,
-                line.Quantity
+                line.Quantity,
+                line.Unit
             );
         }
     }

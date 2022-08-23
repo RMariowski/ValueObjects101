@@ -1,5 +1,6 @@
 ﻿using ValueObjects101.Domain.Articles;
 using ValueObjects101.Domain.Orders;
+using ValueObjects101.Domain.Shared.Enums;
 using ValueObjects101.Domain.Shared.ValueObjects;
 
 namespace ValueObjects101.Infrastructure.Database;
@@ -15,8 +16,9 @@ public static class DatabaseSeeder
         Article article2 = new("Notebook");
         Article article3 = new("Phone Charger");
         Article article4 = new("Notebook Charger");
+        Article article5 = new("Water");
 
-        db.Articles.AddRange(article1, article2, article3, article4);
+        db.Articles.AddRange(article1, article2, article3, article4, article5);
         await db.SaveChangesAsync();
 
         PurchaseOrder purchaseOrder1 = new(new Email("contact1@email.com"), new Email("abc@abc.com"));
@@ -28,10 +30,11 @@ public static class DatabaseSeeder
 
         db.PurchaseOrderLines.AddRange
         (
-            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, new Quantity(3)),
-            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, new Quantity(2)),
-            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, new Quantity(1)),
-            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, new Quantity(420))
+            new PurchaseOrderLine(1, purchaseOrder1.Id, article1.Id, new Quantity(3), Unit.Pieces),
+            new PurchaseOrderLine(2, purchaseOrder1.Id, article2.Id, new Quantity(2), Unit.Pieces),
+            new PurchaseOrderLine(3, purchaseOrder1.Id, article3.Id, new Quantity(1), Unit.Pieces),
+            new PurchaseOrderLine(1, purchaseOrder2.Id, article1.Id, new Quantity(420), Unit.Pieces),
+            new PurchaseOrderLine(2, purchaseOrder2.Id, article5.Id, new Quantity(2.5), Unit.Liters)
         );
         await db.SaveChangesAsync();
 
@@ -44,10 +47,10 @@ public static class DatabaseSeeder
 
         db.SalesOrderLines.AddRange
         (
-            new SalesOrderLine(1, salesOrder1.Id, article1.Id, new Quantity(3)),
-            new SalesOrderLine(2, salesOrder1.Id, article2.Id, new Quantity(2)),
-            new SalesOrderLine(3, salesOrder1.Id, article3.Id, new Quantity(1)),
-            new SalesOrderLine(4, salesOrder2.Id, article4.Id, new Quantity(420))
+            new SalesOrderLine(1, salesOrder1.Id, article1.Id, new Quantity(3), Unit.Pieces),
+            new SalesOrderLine(2, salesOrder1.Id, article2.Id, new Quantity(2), Unit.Pieces),
+            new SalesOrderLine(3, salesOrder1.Id, article3.Id, new Quantity(1), Unit.Pieces),
+            new SalesOrderLine(4, salesOrder2.Id, article4.Id, new Quantity(420), Unit.Pieces)
         );
         await db.SaveChangesAsync();
     }

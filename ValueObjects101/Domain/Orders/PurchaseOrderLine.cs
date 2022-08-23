@@ -1,4 +1,5 @@
 ﻿using ValueObjects101.Domain.Articles;
+using ValueObjects101.Domain.Shared.Enums;
 using ValueObjects101.Domain.Shared.ValueObjects;
 
 namespace ValueObjects101.Domain.Orders;
@@ -9,15 +10,17 @@ public class PurchaseOrderLine
     public long OrderId { get; private set; }
     public long ArticleId { get; private set; }
     public Quantity Quantity { get; private set; } = null!;
+    public Unit Unit { get; private set; }
 
     public Article Article { get; private set; } = null!;
 
-    public PurchaseOrderLine(int number, long orderId, long articleId, Quantity quantity)
+    public PurchaseOrderLine(int number, long orderId, long articleId, Quantity quantity, Unit unit)
     {
         Number = number;
         OrderId = orderId;
         ArticleId = articleId;
         Quantity = quantity;
+        Unit = unit;
     }
 
     private PurchaseOrderLine()

@@ -15,11 +15,14 @@ public class SalesOrderLineEntityTypeConfiguration : IEntityTypeConfiguration<Sa
 
         builder.Property(line => line.OrderId)
             .IsRequired();
-        
+
         builder.Property(line => line.ArticleId)
             .IsRequired();
 
         builder.Property(line => line.Quantity)
+            .IsRequired();
+
+        builder.Property(line => line.Unit)
             .IsRequired();
 
         builder.HasOne(line => line.Article)
